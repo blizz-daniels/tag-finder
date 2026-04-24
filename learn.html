@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learn Coding Path | Web Stack Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="learn.css" />
+    <script src="learn.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <span class="shape shape-a"></span>
+      <span class="shape shape-b"></span>
+      <span class="shape shape-c"></span>
+    </div>
+
+    <header class="learn-header">
+      <a class="back-link" href="index.html">Back to Explorer</a>
+      <a
+        class="target-link"
+        href="lesson%20website/lesson%20result.html"
+        target="_blank"
+        rel="noreferrer"
+        >Open Target Lesson Website</a
+      >
+    </header>
+
+    <main class="learn-main">
+      <section class="intro">
+        <p class="eyebrow">Beginner to Pro Presentation Path</p>
+        <h1>Build the lesson website step by step, without rushing</h1>
+        <p>
+          Each lesson is presented as a guided slide. Click
+          <strong>Next Lesson</strong> to move forward, review examples, and
+          steadily build the same style of project found in
+          <code>lesson website/lesson result.html</code>.
+        </p>
+      </section>
+
+      <section class="presentation" aria-live="polite">
+        <div class="progress-wrap">
+          <div class="progress-meta">
+            <span id="lessonCounter">Lesson 1 of 12</span>
+            <span id="lessonLevel">Beginner</span>
+            <span id="lessonReadTime">~8 min</span>
+          </div>
+          <div class="progress-bar">
+            <span id="progressFill"></span>
+          </div>
+        </div>
+
+        <article id="lessonCard" class="lesson-card">
+          <h2 id="lessonTitle"></h2>
+          <p id="lessonSummary" class="lesson-summary"></p>
+
+          <section class="explain-grid">
+            <article class="explain-panel">
+              <h3>In Plain Words</h3>
+              <p id="lessonExplain"></p>
+            </article>
+            <article class="do-panel">
+              <h3>What You Should Do</h3>
+              <ul id="lessonDo"></ul>
+            </article>
+            <article class="dont-panel">
+              <h3>What You Should Avoid</h3>
+              <ul id="lessonDont"></ul>
+            </article>
+          </section>
+
+          <div class="lesson-columns">
+            <section>
+              <h3>What You Learn</h3>
+              <ul id="lessonPoints"></ul>
+            </section>
+            <section>
+              <h3>Build Target Checkpoint</h3>
+              <ul id="lessonCheckpoint"></ul>
+            </section>
+          </div>
+
+          <section class="element-explain">
+            <h3>Elements Used in This Lesson</h3>
+            <div id="lessonElements" class="element-grid"></div>
+          </section>
+
+          <section class="snippet-wrap">
+            <div class="snippet-head">
+              <span id="codeLabel">HTML Example</span>
+              <button id="copySnippet" type="button">Copy Example</button>
+            </div>
+            <pre><code id="lessonSnippet"></code></pre>
+          </section>
+
+          <p id="slowTip" class="slow-tip"></p>
+        </article>
+
+        <div class="controls">
+          <button id="prevBtn" type="button">Previous</button>
+          <button id="nextBtn" type="button">Next Lesson</button>
+        </div>
+      </section>
+
+      <section class="roadmap">
+        <h2>Course Roadmap</h2>
+        <ol id="roadmapList"></ol>
+      </section>
+    </main>
+  </body>
+</html>

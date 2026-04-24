@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Stack Explorer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700&family=Manrope:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="bg-layer" aria-hidden="true">
+      <span class="orb orb-a"></span>
+      <span class="orb orb-b"></span>
+      <span class="orb orb-c"></span>
+    </div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Back to top">
+        <span class="brand-badge">&lt;/&gt;</span>
+        <span class="brand-text">Web Stack Explorer</span>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#overview">Overview</a>
+        <a href="#stack-guide">Stacks</a>
+        <a href="#category-jump">Categories</a>
+        <a href="learn.html">Learn Coding</a>
+        <a href="#conclusion">Takeaways</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="overview">
+        <p class="eyebrow">Built from html_elements_guide.txt + expanded references</p>
+        <h1>A lively, searchable guide to HTML, CSS, and JavaScript essentials</h1>
+        <p class="hero-copy">
+          Explore structure, styling, and behavior in one playful learning
+          space. Search fast, jump by category, and open each card for practical
+          real-world usage notes.
+        </p>
+
+        <div class="search-wrap">
+          <label for="searchInput" class="sr-only"
+            >Search topics or keywords</label
+          >
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search tags, CSS properties, JS APIs, keywords..."
+            autocomplete="off"
+          />
+          <button id="clearSearch" type="button">Clear</button>
+        </div>
+        <p id="resultInfo" class="result-info"></p>
+        <div class="hero-actions">
+          <a class="learn-coding-btn" href="learn.html">Learn Coding Step-by-Step</a>
+          <a
+            class="target-preview-btn"
+            href="lesson%20website/lesson%20result.html"
+            target="_blank"
+            rel="noreferrer"
+            >Open Target Lesson Website</a
+          >
+        </div>
+      </section>
+
+      <section id="stack-guide" class="stack-guide" aria-label="Technology tracks">
+        <h2>Technology Tracks</h2>
+        <div class="stack-grid">
+          <article class="stack-item stack-html">
+            <h3>HTML</h3>
+            <p>Structure, semantics, accessibility landmarks, and content flow.</p>
+          </article>
+          <article class="stack-item stack-css">
+            <h3>CSS</h3>
+            <p>Visual styling, layout systems, responsive design, and motion.</p>
+          </article>
+          <article class="stack-item stack-js">
+            <h3>JavaScript</h3>
+            <p>Interactivity, DOM updates, event handling, and async behavior.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="stats" aria-label="Guide statistics">
+        <article>
+          <h2 id="totalElements">0</h2>
+          <p>Total entries</p>
+        </article>
+        <article>
+          <h2 id="totalCategories">0</h2>
+          <p>Categories</p>
+        </article>
+        <article>
+          <h2 id="lastUpdated">-</h2>
+          <p>Last updated</p>
+        </article>
+      </section>
+
+      <section id="category-jump" class="jump-section">
+        <h2>Jump to a category</h2>
+        <div id="categoryChips" class="chip-list"></div>
+      </section>
+
+      <section id="contentSections" class="content-sections"></section>
+
+      <section id="conclusion" class="conclusion">
+        <h2>Key takeaways</h2>
+        <ul>
+          <li>Use HTML semantics to build clear and accessible page structure.</li>
+          <li>Use CSS systems (variables, grid, flex) for scalable visual design.</li>
+          <li>Use JavaScript to add behavior without sacrificing performance.</li>
+          <li>Combine all three thoughtfully for responsive, maintainable sites.</li>
+        </ul>
+        <p>
+          Learn more:
+          <a href="https://html.spec.whatwg.org/" target="_blank" rel="noreferrer"
+            >html.spec.whatwg.org</a
+          >
+        </p>
+      </section>
+    </main>
+  </body>
+</html>
