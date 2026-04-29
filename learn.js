@@ -7100,10 +7100,13 @@ const roadmapListEl = document.querySelector("#roadmapList");
 const prevBtn = document.querySelector("#prevBtn");
 const nextBtn = document.querySelector("#nextBtn");
 const copySnippetBtn = document.querySelector("#copySnippet");
+const ttsPlayBtn = document.querySelector("#ttsPlay");
+const ttsStopBtn = document.querySelector("#ttsStop");
 
 let currentIndex = 0;
 let currentPartIndex = 0;
 let lockInterval = null;
+let activeUtterance = null;
 
 function renderList(target, values) {
   target.innerHTML = values
@@ -7213,6 +7216,72 @@ function getNextButtonLabel() {
   return "Next Lesson";
 }
 
+function normalizeNarrationText(value) {
+  return (value ?? "").replace(/\s+/g, " ").trim();
+}
+
+function getListNarrationText(target) {
+  if (!target) {
+    return "";
+  }
+  return Array.from(target.querySelectorAll("li"))
+    .map((item) => normalizeNarrationText(item.textContent))
+    .filter(Boolean)
+    .join(". ");
+}
+
+function getCurrentLessonNarrationText() {
+  const parts = [
+    normalizeNarrationText(lessonTitleEl?.textContent),
+    normalizeNarrationText(lessonSummaryEl?.textContent),
+    normalizeNarrationText(lessonExplainEl?.textContent),
+    getListNarrationText(lessonCheckpointEl),
+    getListNarrationText(lessonDoEl),
+    getListNarrationText(lessonDontEl),
+    getListNarrationText(lessonPointsEl)
+  ];
+
+  return parts.filter(Boolean).join(". ");
+}
+
+function stopSpeech() {
+  if (!("speechSynthesis" in window)) {
+    return;
+  }
+  window.speechSynthesis.cancel();
+  activeUtterance = null;
+}
+
+function speakCurrentLesson() {
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+    return;
+  }
+
+  const text = getCurrentLessonNarrationText();
+  if (!text) {
+    return;
+  }
+
+  stopSpeech();
+  const utterance = new SpeechSynthesisUtterance(text);
+  utterance.lang = document.documentElement.lang || "en-US";
+  utterance.rate = 1;
+  utterance.pitch = 1;
+  utterance.onend = () => {
+    if (activeUtterance === utterance) {
+      activeUtterance = null;
+    }
+  };
+  utterance.onerror = () => {
+    if (activeUtterance === utterance) {
+      activeUtterance = null;
+    }
+  };
+
+  activeUtterance = utterance;
+  window.speechSynthesis.speak(utterance);
+}
+
 function renderRoadmap() {
   roadmapListEl.innerHTML = lessons
     .map((lesson, index) => {
@@ -7305,6 +7374,7 @@ function renderLesson() {
 }
 
 function goToLesson(index) {
+  stopSpeech();
   const safeIndex = Math.min(Math.max(index, 0), lessons.length - 1);
   currentIndex = safeIndex;
   renderLesson();
@@ -7363,6 +7433,14 @@ function setupEvents() {
     copyCurrentSnippet();
   });
 
+  ttsPlayBtn.addEventListener("click", () => {
+    speakCurrentLesson();
+  });
+
+  ttsStopBtn.addEventListener("click", () => {
+    stopSpeech();
+  });
+
   roadmapToggleEl.addEventListener("click", () => {
     const isOpen = roadmapDrawerEl.classList.contains("is-open");
     setRoadmapOpen(!isOpen);
@@ -7399,10 +7477,19 @@ function setupEvents() {
   window.addEventListener("resize", () => {
     syncSlideWindowHeight();
   });
+
+  window.addEventListener("beforeunload", () => {
+    stopSpeech();
+  });
 }
 
 function init() {
   setRoadmapOpen(false);
+  if (!("speechSynthesis" in window) || typeof SpeechSynthesisUtterance === "undefined") {
+    ttsPlayBtn.disabled = true;
+    ttsStopBtn.disabled = true;
+    ttsPlayBtn.textContent = "Read Aloud (Unavailable)";
+  }
   setupEvents();
   renderLesson();
 }
